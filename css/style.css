@@ -1,11 +1,17 @@
 
 * {
 	box-sizing: border-box;
+ 
 }
 
 body {
-	background-color: #0e0e0e;;
-	font-family: helvetica;
+	background-color: #0e0e0e;
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Evita barras de desplazamiento */
 }
 
 .canvatable {
@@ -23,7 +29,7 @@ body {
 .title {
     text-align: center;
     font-size: 2rem;
-    font-family: "Roboto Condensed", Arial, sans-serif;
+    /* font-family: "Roboto Condensed", Arial, sans-serif; */
     text-transform: uppercase;
     color: white;
     text-shadow: 1px 1px 1px #aaa;
@@ -34,7 +40,7 @@ body {
     font-size: 4rem;
     position: fixed;
     top: 0;
-    font-family: "Roboto Condensed", Arial, sans-serif;
+    /* font-family: "Roboto Condensed", Arial, sans-serif; */
     text-shadow: 1px 1px 1px #aaa;
     font-weight: bold;
     left: 0;
@@ -50,3 +56,135 @@ body {
     left: inherit;   
 }
 
+/* Nuevo codigo para la pantalla incial */
+#container {
+    position: relative;
+    width: 100vw; /* 100% del ancho de la ventana */
+    height: 100vh; /* 100% del alto de la ventana */
+    overflow: hidden;
+}
+
+.menu {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    padding: 20px;
+    text-align: center;
+}
+
+.menu-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 3rem;
+    color: #ff63ff;
+    text-shadow: 0 0 10px #a6b7eb;
+    margin-bottom: 3rem;
+    letter-spacing: 0.5rem;
+}
+
+/* Controles del menú */
+.menu-controls {
+    margin: 1rem 0;
+    width: 200px;
+}
+
+.menu-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.menu-label {
+    color: #0f0;
+    text-shadow: 0 0 5px #0f0;
+}
+
+.menu-value {
+    color: #fff;
+}
+
+.menu-start {
+    font-size: 1.5rem;
+    color: #0f0;
+    text-shadow: 0 0 5px #0f0;
+    animation: blink 1.5s infinite;
+    margin-bottom: 3rem;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+
+/* Input del jugador */
+.player-input {
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.player-input label {
+    color: #0f0;
+    font-size: 0.8rem;
+    text-shadow: 0 0 5px #0f0;
+}
+
+.player-input input {
+    background: #222;
+    border: 2px solid #0f0;
+    color: #fff;
+    font-family: 'Press Start 2P', cursive;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 1rem;
+    max-width: 200px;
+}
+
+/* Tabla de récords */
+.high-scores {
+    margin: 1.5rem 0;
+    width: 80%;
+    max-width: 400px;
+    border: 2px solid #0f0;
+    padding: 1rem;
+}
+
+.high-scores h2 {
+    color: #ff0;
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    text-shadow: 0 0 5px #ff0;
+}
+
+.high-scores table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.7rem;
+}
+
+.high-scores th, .high-scores td {
+    padding: 0.5rem;
+    border: 1px solid #0f0;
+    text-align: center;
+}
+
+.high-scores th {
+    background-color: rgba(0, 255, 0, 0.2);
+    color: #0f0;
+}
+
+.high-scores tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+#scores-body td {
+    color: #0f0;
+}
