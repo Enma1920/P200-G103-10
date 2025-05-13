@@ -10,6 +10,13 @@ class Joc{
          * Tasca. Crear els elements del joc
          * Pales, bola, etc
         **********************************/
+        this.bola = new Bola(new Punt((myCanvas.width/2)-5,(myCanvas.height/2)-5),10,10);
+        this.palaJugador1 = new Pala(new Punt(0,0),10,100);
+        this.palaJugador2 = new Pala(new Punt(myCanvas.width-10,0),10,100);
+        this.palaJugador1.color = "#eee";
+        this.palaJugador2.color = "#eee";
+        this.bola.color= "#eee";
+
 
         //Tecles de control
          //tecles del Joc. Només fem servir up i down
@@ -25,7 +32,7 @@ class Joc{
     }
 
     inicialitza(){
-       
+
 
         $(document).on("keydown",{joc:this}, function(e){
              /********************************* 
@@ -58,6 +65,7 @@ class Joc{
         **********************************/
        //Màtode de crida recursiva per generar l'animació dels objectes
         requestAnimationFrame(animacio);
+        
 
 
     }
@@ -72,12 +80,17 @@ class Joc{
     }
 
     draw(){
-        this.clearCanvas();
+        // this.clearCanvas();
         /********************************* 
          * Tasca. Dibuixar els elements del joc
          * al canva, un cop actualitzades
          * les seves posicions: Pales, bola, etc
-        **********************************/  
+        **********************************/
+        this.bola.draw(this.myCtx);
+        this.palaJugador1.draw(this.myCtx);
+        this.palaJugador2.draw(this.myCtx);
+
+
         
     }
     //Neteja el canvas
