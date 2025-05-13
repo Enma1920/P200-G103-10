@@ -10,7 +10,6 @@ class Joc{
          * Tasca. Crear els elements del joc
          * Pales, bola, etc
         **********************************/
-       
 
         //Tecles de control
          //tecles del Joc. Només fem servir up i down
@@ -26,6 +25,7 @@ class Joc{
     }
 
     inicialitza(){
+       
 
         $(document).on("keydown",{joc:this}, function(e){
              /********************************* 
@@ -33,6 +33,10 @@ class Joc{
              * de les definides com a tecla de moviment
              * Actualitzar la propietat pressed a true 
             **********************************/
+            if(e.keyCode == joc.key.RIGHT.code){
+                joc.key.DOWN.pressed = true;
+                
+            }
            
         });
         $(document).on("keyup", {joc:this}, function(e){
@@ -41,6 +45,10 @@ class Joc{
              * si és alguna de les definides com a tecla de moviment
              * Actualitzar la propietat pressed a false
             **********************************/
+           if(e.keyCode == joc.key.UP.code){
+                joc.key.UP.pressed = true;
+                
+            }
             
         });
 
@@ -50,6 +58,7 @@ class Joc{
         **********************************/
        //Màtode de crida recursiva per generar l'animació dels objectes
         requestAnimationFrame(animacio);
+
 
     }
 
