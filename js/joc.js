@@ -11,7 +11,7 @@ class Joc{
          * Pales, bola, etc
         **********************************/
         this.bola = new Bola(new Punt((myCanvas.width/2)-5,(myCanvas.height/2)-5),10,10);
-        this.palaJugador1 = new Pala(new Punt(0,0),10,100);
+        this.palaJugador1 = new Pala(new Punt(10,40),10,40);
         this.palaJugador2 = new Pala(new Punt(myCanvas.width-10,0),10,100);
         this.palaJugador1.color = "#eee";
         this.palaJugador2.color = "#eee";
@@ -21,9 +21,9 @@ class Joc{
         //Tecles de control
          //tecles del Joc. Només fem servir up i down
         this.key = {
-            RIGHT: {code: 39, pressed: false},
+            RIGHT: {code: 40, pressed: false},
             LEFT: {code: 37, pressed: false},
-            DOWN: {code: 40, pressed: false},
+            DOWN: {code: 39, pressed: false},
             UP: {code: 38, pressed: false}
         }
     }
@@ -76,11 +76,12 @@ class Joc{
          * dels elements del joc
          * al canva: Pales, bola, etc
         **********************************/      
+       this.palaJugador1.update(this.key, this.alcada);
         this.draw();
     }
 
     draw(){
-        // this.clearCanvas();
+        this.clearCanvas();
         /********************************* 
          * Tasca. Dibuixar els elements del joc
          * al canva, un cop actualitzades
