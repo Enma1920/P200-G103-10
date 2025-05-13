@@ -11,6 +11,9 @@ $(function(){
      * dels elements del joc
      * al canva: Pales, bola, etc
     **********************************/  
+    joc = new Joc(myCanvas,myCtx);
+    joc.inicialitza();
+    
     animacio();
 
 })
