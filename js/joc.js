@@ -10,6 +10,13 @@ class Joc{
          * Tasca. Crear els elements del joc
          * Pales, bola, etc
         **********************************/
+        this.bola = new Bola(new Punt((myCanvas.width/2)-5,(myCanvas.height/2)-5),10,10);
+        this.palaJugador1 = new Pala(new Punt(10,40),10,60);
+        this.palaJugador2 = new Pala(new Punt(myCanvas.width-20,70),10,60);
+        this.palaJugador1.color = "#eee";
+        this.palaJugador2.color = "#eee";
+        this.bola.color= "#eee";
+
 
         //Tecles de control
          //tecles del Joc. Només fem servir up i down
@@ -25,19 +32,16 @@ class Joc{
     }
 
     inicialitza(){
-       
-
         $(document).on("keydown",{joc:this}, function(e){
              /********************************* 
              * Tasca. Indetificar la tecla premuda si és alguna
              * de les definides com a tecla de moviment
              * Actualitzar la propietat pressed a true 
             **********************************/
-            if(e.keyCode == joc.key.RIGHT.code){
+            if(e.keyCode == joc.key.DOWN.code){
                 joc.key.DOWN.pressed = true;
-                
+                joc.key.UP.pressed = false;
             }
-           
         });
         $(document).on("keyup", {joc:this}, function(e){
             /********************************* 
@@ -47,9 +51,8 @@ class Joc{
             **********************************/
            if(e.keyCode == joc.key.UP.code){
                 joc.key.UP.pressed = true;
-                
+                joc.key.DOWN.pressed = false;
             }
-            
         });
 
         /********************************* 
@@ -58,8 +61,6 @@ class Joc{
         **********************************/
        //Màtode de crida recursiva per generar l'animació dels objectes
         requestAnimationFrame(animacio);
-
-
     }
 
     update(){
@@ -68,7 +69,8 @@ class Joc{
          * dels elements del joc
          * al canva: Pales, bola, etc
         **********************************/      
-        this.draw();
+       this.palaJugador1.update(this.key, this.alcada);
+       this.draw();
     }
 
     draw(){
@@ -77,8 +79,10 @@ class Joc{
          * Tasca. Dibuixar els elements del joc
          * al canva, un cop actualitzades
          * les seves posicions: Pales, bola, etc
-        **********************************/  
-        
+        **********************************/
+        this.bola.draw(this.myCtx);
+        this.palaJugador1.draw(this.myCtx);
+        this.palaJugador2.draw(this.myCtx);
     }
     //Neteja el canvas
     clearCanvas(){
@@ -87,6 +91,4 @@ class Joc{
             this.amplada, this.alcada
         )
     }
-
-
 }
