@@ -15,26 +15,48 @@ class Pala extends Rectangle {
             /********************************* 
              * Tasca. Definir el moviment de la pala
              * en funció de la tecla premuda
-            **********************************/
-            this.mou(0, 1);
+             *********************************/
 
+            //limits 1 . Atura*********************************************
+            let x = 0;
+            let y = 1;
+            let novaPosicioY = this.puntPosicio.y + y;
+
+            if(novaPosicioY >= alcada - this.alcada){
+                y = 0;
+            }
+
+            if(novaPosicioY <= 0){
+                y = 0;
+            }
+
+            this.mou(x, y);
         }
         if (key.UP.pressed) {
             /********************************* 
-              * Tasca. Definir el moviment de la pala
-              * en funció de la tecla premuda
-             **********************************/
-            this.mou(0, -1);
+             * Tasca. Definir el moviment de la pala
+             * en funció de la tecla premuda
+             *********************************/
+            let x = 0;
+            let y = -1;
+            let novaPosicioY = this.puntPosicio.y + y;
 
+            if (novaPosicioY >= alcada - this.alcada) {
+                y = 0;
             }
+
+            if (novaPosicioY <= 0) {
+                y = 0;
+            }
+
+            this.mou(x, y);
+        }
     }
     updateAuto(alcada) {
-        /********************************* 
+        /*********************************
          * Tasca. Definir el moviment de la pala
          * automàtica en moviment constant 
          * o amb variacions aleatories
-        **********************************/
-
+         *********************************/
     }
-
 }
