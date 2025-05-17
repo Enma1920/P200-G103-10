@@ -58,5 +58,20 @@ class Pala extends Rectangle {
          * automàtica en moviment constant 
          * o amb variacions aleatories
          *********************************/
+        let x = 0;
+        let y = this.velocitatY;
+        let novaPosicioY = this.puntPosicio.y + y;
+
+            if (novaPosicioY >= alcada - this.alcada) {
+                this.velocitatY = -2;
+            }
+
+            if (novaPosicioY <= 0) {
+                this.velocitatY = 2;
+            }
+
+            this.mou(x, this.velocitatY);
+        
+        
     }
 }
