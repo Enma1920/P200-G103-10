@@ -70,8 +70,10 @@ class Joc{
          * al canva: Pales, bola, etc
         **********************************/      
        this.palaJugador1.update(this.key, this.alcada);
+        this.palaJugador2.updateAuto(this.alcada);
        this.draw();
     }
+
 
     draw(){
         this.clearCanvas();
