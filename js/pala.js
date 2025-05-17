@@ -63,11 +63,11 @@ class Pala extends Rectangle {
         let novaPosicioY = this.puntPosicio.y + y;
 
             if (novaPosicioY >= alcada - this.alcada) {
-                this.velocitatY = -2;
+                this.velocitatY = -1;
             }
 
             if (novaPosicioY <= 0) {
-                this.velocitatY = 2;
+                this.velocitatY = 1;
             }
 
             this.mou(x, this.velocitatY);
