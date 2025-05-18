@@ -3,7 +3,7 @@ class Pala extends Rectangle {
         super(puntPosicio, amplada, alcada);
         this.velocitatX = 2;
         this.velocitatY = 2;
-        this.cocolorRectangle = "#eee";
+        this.colorRectangle = "#eee";
     }
 
     mou(mouX, mouY) {
