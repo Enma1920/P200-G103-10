@@ -6,8 +6,8 @@ class Bola extends Rectangle {
         this.colorRectangle = "#ffec35";       
     };
     mou(mouX,mouY){
-        this.puntPosicio.x += x;
-        this.puntPosicio.y += y;
+        this.puntPosicio.x += mouX;
+        this.puntPosicio.y += mouY;
     }
 
     update(ampleCanva, altCanva, palaJugador, palaOrdinador){
