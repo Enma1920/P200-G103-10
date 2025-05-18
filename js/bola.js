@@ -3,8 +3,7 @@ class Bola extends Rectangle {
         super(puntPosicio, amplada, alcada);       
         this.velocitatx = 2;
         this.velocitaty = 2;
-        this.colorCercle = "#eee";
-       
+        this.colorRectangle = "#ffec35";       
     };
     mou(mouX,mouY){
         this.puntPosicio.x += x;
