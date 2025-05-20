@@ -3,7 +3,7 @@ class Pala extends Rectangle {
         super(puntPosicio, amplada, alcada);
         this.velocitatX = 2;
         this.velocitatY = 2;
-        this.cocolorRectangle = "#eee";
+        this.colorRectangle = "#eee";
     }
 
     mou(mouX, mouY) {
@@ -58,5 +58,20 @@ class Pala extends Rectangle {
          * automàtica en moviment constant 
          * o amb variacions aleatories
          *********************************/
+        let x = 0;
+        let y = this.velocitatY;
+        let novaPosicioY = this.puntPosicio.y + y;
+
+            if (novaPosicioY >= alcada - this.alcada) {
+                this.velocitatY = -1;
+            }
+
+            if (novaPosicioY <= 0) {
+                this.velocitatY = 1;
+            }
+
+            this.mou(x, this.velocitatY);
+        
+        
     }
 }

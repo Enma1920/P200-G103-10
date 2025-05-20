@@ -13,10 +13,6 @@ class Joc{
         this.bola = new Bola(new Punt((myCanvas.width/2)-5,(myCanvas.height/2)-5),10,10);
         this.palaJugador1 = new Pala(new Punt(10,40),10,60);
         this.palaJugador2 = new Pala(new Punt(myCanvas.width-20,70),10,60);
-        this.palaJugador1.color = "#eee";
-        this.palaJugador2.color = "#eee";
-        this.bola.color= "#eee";
-
 
         //Tecles de control
          //tecles del Joc. Només fem servir up i down
@@ -70,8 +66,11 @@ class Joc{
          * al canva: Pales, bola, etc
         **********************************/      
        this.palaJugador1.update(this.key, this.alcada);
+       this.palaJugador2.updateAuto(this.alcada);
+    //    this.bola.update(this.amplada, this.alcada, this.palaJugador1, this.palaJugador2);
        this.draw();
     }
+
 
     draw(){
         this.clearCanvas();
@@ -80,9 +79,10 @@ class Joc{
          * al canva, un cop actualitzades
          * les seves posicions: Pales, bola, etc
         **********************************/
-        this.bola.draw(this.myCtx);
         this.palaJugador1.draw(this.myCtx);
         this.palaJugador2.draw(this.myCtx);
+        this.bola.draw(this.myCtx);
+
     }
     //Neteja el canvas
     clearCanvas(){
