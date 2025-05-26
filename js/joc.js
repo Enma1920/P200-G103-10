@@ -67,7 +67,7 @@ class Joc{
         **********************************/      
        this.palaJugador1.update(this.key, this.alcada);
        this.palaJugador2.updateAuto(this.alcada);
-    //    this.bola.update(this.amplada, this.alcada, this.palaJugador1, this.palaJugador2);
+       this.bola.update(this.amplada, this.alcada, this.palaJugador1, this.palaJugador2);
        this.draw();
     }
 
