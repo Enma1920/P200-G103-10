@@ -80,4 +80,27 @@ function inicialitzaMenu() {
         $('.menu').hide();
         $('#display, #divjoc').show();
     }
+
+    // Función "boton" musica, con labels 
+    var audioMusica = $("#audioMusica")[0];
+    var botoMusica = $("#music-button");
+    var musicaOn = false;
+
+    // Parar musica de fons 
+    botoMusica.on("click",function(){
+        // Quan la música esta ON 
+        if(musicaOn){  
+            // pausem la música
+            audioMusica.pause();
+            document.getElementById("music-button").textContent = "ON";
+            musicaOn = false;
+        }
+        // Quan la música esta OFF
+        else{
+            // Reproduim la música
+            audioMusica.play();
+            document.getElementById("music-button").textContent = "OFF";
+            musicaOn = true;
+        }
+    });
 }
