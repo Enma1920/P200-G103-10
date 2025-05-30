@@ -92,14 +92,14 @@ function inicialitzaMenu() {
         if(musicaOn){  
             // pausem la música
             audioMusica.pause();
-            document.getElementById("music-button").textContent = "ON";
+            document.getElementById("music-button").textContent = "OFF";
             musicaOn = false;
         }
         // Quan la música esta OFF
         else{
             // Reproduim la música
             audioMusica.play();
-            document.getElementById("music-button").textContent = "OFF";
+            document.getElementById("music-button").textContent = "ON";
             musicaOn = true;
         }
     });
