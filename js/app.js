@@ -116,7 +116,7 @@ function inicialitzaMenu() {
 
     // colores del tema
     const colorsGame = {
-        classic: {
+        default: {
             fons: "#222",
             pala1: "#eee",
             pala2: "#eee",
@@ -148,21 +148,17 @@ function inicialitzaMenu() {
         }
     };
     $("#select-color").on("change", colores);
-    function colores(){
-        var colorSelected = $("#select-color").value;
-        colorSelected.on("change", ()=>{
-            let colorGame = colorsGame[colorSelected];
-            let fonsJoc = $("#joc");
+    function colores() {
+        var colorSelected = $("#select-color").val(); // usa .val() en vez de .value
+        let colorGame = colorsGame[colorSelected];
+        let fonsJoc = $("#joc");
 
-            // cambiamos colores del fondo, palas y bola
-            fonsJoc.css("background-color", colorGame.fons);
-            joc.bola.colorRectangle = colorGame.bola;
-            joc.palaJugador1.colorRectangle = colorGame.pala1;
-            joc.palaJugador2.colorRectangle = colorGame.pala2;
-        })
+        if (!colorGame) return; // protección por si el color no existe
 
-    };
-    
-
-
+        // cambiamos colores del fondo, palas y bola
+        fonsJoc.css("background-color", colorGame.fons);
+        joc.bola.colorRectangle = colorGame.bola;
+        joc.palaJugador1.colorRectangle = colorGame.pala1;
+        joc.palaJugador2.colorRectangle = colorGame.pala2;
+    }
 }
