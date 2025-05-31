@@ -188,3 +188,9 @@ body {
 #scores-body td {
     color: #0f0;
 }
+#audioMusica{
+    display: none;
+}
+#cache-button, #music-button{
+    cursor: pointer;
+}
