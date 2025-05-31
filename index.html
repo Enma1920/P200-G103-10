@@ -50,12 +50,11 @@
                     
                         <span class="menu-label">MUSIC:</span>
                         <span class="menu-value" id="music-button" tabindex="0">OFF</span>
-                    
-                    
+                        <audio controls autoplay loop id="audioMusica">
+                            <source src="musica_puzzle.mp3" type="audio/mpeg">
+                        </audio>
                 </div>
-                <audio controls autoplay loop id="audioMusica">
-                  <source src="musica_puzzle.mp3" type="audio/mpeg">
-                </audio>
+                
             </div>
         </div>
         <div id="display" style="display: none;">
@@ -64,7 +63,22 @@
             <div class="score" id="score-jugador2">0</div>   
         </div>  
         <div id="divjoc" style="display: none;">
-            <canvas id="joc" class="canvatable"></canvas>    
+            <canvas id="joc" class="canvatable"></canvas>   
+                
+            <div class="menu-controls">
+
+                    <div class="menu-row">
+                        <span class="menu-label">COLOR:</span>
+                        <select name="select-color" id="select-color">
+                            <option value="default">Default</option>
+                            <option value="blue">Blue</option>
+                            <option value="red">Red</option>
+                            <option value="green">Green</option>
+                            <option value="orange">Orange</option>
+                        </select>
+                </div>
+            </div>
+ 
         </div>    
             
     </div>
