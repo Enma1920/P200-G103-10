@@ -81,7 +81,7 @@ function inicialitzaMenu() {
         $('#display, #divjoc').show();
     }
 
-    // Función "boton" musica, con labels 
+    // Función "boton" musica 
     var audioMusica = $("#audioMusica")[0];
     var botoMusica = $("#music-button");
     var musicaOn = false;
@@ -103,4 +103,14 @@ function inicialitzaMenu() {
             musicaOn = true;
         }
     });
+    //Función "boton" cache
+    var botoCache = $("#cache-button");
+    botoCache.on("click", ()=>{
+        localStorage.clear();
+        botoCache.text("CLEARED");
+        setTimeout(() => {
+        location.reload();
+    }, 700); 
+
+    })
 }

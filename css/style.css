@@ -191,3 +191,6 @@ body {
 #audioMusica{
     display: none;
 }
+#cache-button, #music-button{
+    cursor: pointer;
+}
