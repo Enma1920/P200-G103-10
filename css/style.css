@@ -194,3 +194,15 @@ body {
 #cache-button, #music-button{
     cursor: pointer;
 }
+#select-color{
+    color: #0f0;
+    text-shadow: 0 0 5px #0f0;
+    background: transparent;
+    font-family: 'Press Start 2P', cursive;
+    
+}
+#select-color option {
+    background: #222;
+    color: #0f0;
+    font-family: 'Press Start 2P', cursive;
+}
