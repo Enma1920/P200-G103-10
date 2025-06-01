@@ -124,21 +124,21 @@ function inicialitzaMenu() {
         },
         blue: {
             fons: "#0d1b2a",
-            pala1: "#1b263b",
-            pala2: "#1b263b",
+            pala1: "#4fc3f7",
+            pala2: "#4fc3f7",
             bola: "#00b4d8",
         },
         red: {
-            fons: "#x2d0606x",
+            fons: "#2d0606",
             pala1: "#ff4e4e",
             pala2: "#ff4e4e",
-            bola: "#7a7a7a",
+            bola: "#ffd6a5",
         },
         green: {
             fons: "#1b5e20",
             pala1: "#43a047",
             pala2: "#43a047",
-            bola: "#7a7a7a",
+            bola: "#b2ff59",
         },
         orange: {
             fons: "#ff9800",
