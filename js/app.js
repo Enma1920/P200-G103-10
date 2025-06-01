@@ -1,4 +1,6 @@
 //Variables i constants globals
+
+
 //Main de l'aplicatiu
 var joc;
 $(function () {
