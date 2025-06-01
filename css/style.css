@@ -96,6 +96,13 @@ body {
     justify-content: space-between;
     margin-bottom: 1.5rem;
     font-size: 1.2rem;
+
+    /* no es pugui seleccionar el spn:  */
+    user-select: none;        
+    -webkit-user-select: none;
+    -moz-user-select: none;   
+    -ms-user-select: none;    
+    cursor: pointer;          
 }
 
 .menu-label {
