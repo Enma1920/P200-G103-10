@@ -50,6 +50,11 @@ class Bola extends Rectangle {
        **********************************/
         // xoc = revisaXocTop(segmentTrajectoria);
 
+        // Xocs laterals = fi de punt, cal reiniciar
+        if (this.revisaXocLeft(segmentTrajectoria) || this.revisaXocRight(segmentTrajectoria, ampleCanva)) {
+            return; // EVITA continuar després del reinici
+        }
+
         // Revisar colisiones con los márgenes del canvas
         xoc = this.revisaXocTop(segmentTrajectoria) ||
             this.revisaXocBottom(segmentTrajectoria, altCanva) ||
@@ -116,6 +121,8 @@ class Bola extends Rectangle {
             this.puntPosicio.x = segmentTrajectoria.puntB.x - exces * this.velocitatx;
             this.puntPosicio.y = 0;
             this.velocitaty = -this.velocitaty;
+
+            playEffect(soParet);
             return true;
         }
     }
@@ -126,6 +133,8 @@ class Bola extends Rectangle {
             this.puntPosicio.x = segmentTrajectoria.puntB.x - exces * this.velocitatx;
             this.puntPosicio.y = altCanva - this.alcada;
             this.velocitaty = -this.velocitaty;
+            
+            playEffect(soParet);
             return true;
         }
         return false;
@@ -137,7 +146,11 @@ class Bola extends Rectangle {
             this.puntPosicio.x = 0;
             this.puntPosicio.y = segmentTrajectoria.puntB.y;
             this.velocitatx = -this.velocitatx;
-            // Aquí deberías reiniciar el juego y asignar punto
+
+            playEffect(soLose);
+            joc.puntuacioJugador2++;
+            joc.reiniciaBola();
+            
             return true;
         }
         return false;
@@ -149,7 +162,11 @@ class Bola extends Rectangle {
             this.puntPosicio.x = ampleCanva - this.amplada;
             this.puntPosicio.y = segmentTrajectoria.puntB.y;
             this.velocitatx = -this.velocitatx;
-            // Aquí deberías reiniciar el juego y asignar punto
+            
+            playEffect(soWin);
+            joc.puntuacioJugador1++;
+            joc.reiniciaBola();
+            
             return true;
         }
         return false;
@@ -179,11 +196,15 @@ class Bola extends Rectangle {
 
         // Verificar colisión con la pala del jugador
         if (palaJugador.colisioRectangle(bolaRect)) {
+            soRebot.volume = 1.0;
+            playEffect(soRebot);
             return this.detectarVoraColisio(bolaRect, palaJugador, "jugador");
         }
 
         // Verificar colisión con la pala del ordenador
         if (palaOrdinador.colisioRectangle(bolaRect)) {
+            soRebot.volume = 0.2;
+            playEffect(soRebot);
             return this.detectarVoraColisio(bolaRect, palaOrdinador, "ordinador");
         }
 

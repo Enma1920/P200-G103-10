@@ -1,42 +1,79 @@
 //Variables i constants globals
+var joc;
+let gameStarted = false;
+// Control de musica i efectes
+let musicAudio = new Audio('audio/retro-game-music.mp3');
+musicAudio.loop = true;
 
+let gameStart = new Audio('audio/game-start.mp3');
+
+
+let soRebot = new Audio('audio/ball-tap.wav');
+let soParet = new Audio('audio/ball-top-bottom.wav');
+soParet.volume = 0.6;
+let soWin = new Audio('audio/win.wav');
+let soLose = new Audio('audio/lose.wav');
+
+let musicOn = false;
+
+let effectsOn = true;
 
 //Main de l'aplicatiu
-var joc;
+// Quan en doc estigui preparat, executa la funcio
 $(function () {
     let myCanvas = $("#joc")[0];
-    let myCtx = myCanvas.getContext("2d");
+    let myCtx = myCanvas.getContext("2d"); // obté canvas i context per...
 
     /********************************* 
      * Tasca. Inicialitza la classe JOC les posicions 
      * dels elements del joc
      * al canva: Pales, bola, etc
     **********************************/
-    joc = new Joc(myCanvas, myCtx);
+    joc = new Joc(myCanvas, myCtx); // ... dibuixar el joc
     inicialitzaMenu();
-    joc.inicialitza();
 
-    animacio();
+    // joc.inicialitza(); // Més bona pràctica fer-ho al Game Start
+    // animacio();
 })
 
+let requestId = null; // Variable global
+
 function animacio() {
+    console.log("frame");
     joc.update();
     //Oportunitat per actualitzar les puntuacions
     //revisar si seguim jugant o no
     //Si pujem de nivell, etc
 
     //Crida recursiva per generar animació
-    requestAnimationFrame(animacio);
+    requestId = requestAnimationFrame(animacio);
+}
+
+function aturaAnimacio() {
+    if (requestId) {
+        cancelAnimationFrame(requestId);
+        requestId = null;
+        console.log("animació aturada");
+    }
+}
+
+// funcions globals
+// efectes amb inicialització passada ruta path
+function playEffect(audioObj) {
+    if (effectsOn) {
+        audioObj.currentTime = 0;
+        audioObj.play()
+    }
 }
 
 function inicialitzaMenu() {
     // Cargar récords
     const highScores = [
-        { name: "PRO", score: 8500 },
-        { name: "MASTER", score: 7200 },
-        { name: "ACE", score: 6800 },
-        { name: "NOVA", score: 5500 },
-        { name: "ROOKIE", score: 4200 }
+        { name: "PRO", score: 22 },
+        { name: "MASTER", score: 18 },
+        { name: "ACE", score: 13 },
+        { name: "NOVA", score: 8 },
+        { name: "ROOKIE", score: 2 }
     ];
 
     const $scoresBody = $('#scores-body');
@@ -55,12 +92,14 @@ function inicialitzaMenu() {
 
     // Guardar nombre cuando cambia
     $playerName.on('change', function () {
-        localStorage.setItem('playerName', $(this).val());
+        const nomJugador = $(this).val();
+        localStorage.setItem('playerName', nomJugador);
+        // console.log("name:", nomJugador);
     });
 
     // Manejar Enter en el input
     $playerName.on('keypress', function (e) {
-        if (e.which === 13) { // 13 es el código de Enter
+        if (e.which === 13 && !gameStarted) { // 13 es el código de Enter
             e.preventDefault();
             startGame();
         }
@@ -69,8 +108,13 @@ function inicialitzaMenu() {
     // Manejar otras teclas en el documento
     $(document).on('keydown', function (e) {
         // Solo iniciar si no está en el input y no es Enter
-        if (!$(e.target).is('input') && e.which !== 13) {
+        if (!$(e.target).is('input') && e.which !== 13 && !gameStarted) {
             startGame();
+        } else if (e.key === 'Enter') { // si enter i està focus sobre els span... 
+            let $focused = $(document.activeElement);
+            if ($focused.is('.menu-label[role="button"]')) {
+                $focused.click(); // ... simula clic amb enter o espai
+            }
         }
     });
 
@@ -79,32 +123,47 @@ function inicialitzaMenu() {
         const playerName = $playerName.val() || 'PLAYER1';
         localStorage.setItem('playerName', playerName);
 
+        aturaAnimacio();
+
+        joc.inicialitza();
+        animacio();
         $('.menu').hide();
         $('#display, #divjoc').show();
+
+        playEffect(gameStart);
+        gameStarted = true;
+
+        console.log("Game Strt");
+
+        // // Guardar rècord si s'ha superat un dels 5 millors
+        // const records = JSON.parse(localStorage.getItem("records")) || [];
+        // const nouRecord = { nom: playerName, punts: joc.puntuacioJugador1 };
+        
+        // // Afegir i ordenar de major a menor
+        // records.push(nouRecord);
+        // records.sort((a, b) => b.punts - a.punts); 
+        // localStorage.setItem("records", JSON.stringify(records.slice(0, 5)));
     }
 
-    // Función "boton" musica 
-    var audioMusica = $("#audioMusica")[0];
-    var botoMusica = $("#music-button");
-    var musicaOn = false;
-
-    // Parar musica de fons 
-    botoMusica.on("click",function(){
-        // Quan la música esta ON 
-        if(musicaOn){  
-            // pausem la música
-            audioMusica.pause();
-            document.getElementById("music-button").textContent = "OFF";
-            musicaOn = false;
-        }
-        // Quan la música esta OFF
-        else{
-            // Reproduim la música
-            audioMusica.play();
-            document.getElementById("music-button").textContent = "ON";
-            musicaOn = true;
+    // Gestió del botó MUSIC
+    $('.menu-row:contains("MUSIC")').on('click', function () {
+        musicOn = !musicOn;
+        if (musicOn) {
+            musicAudio.play();
+            $(this).find('.menu-value').text("ON");
+        } else {
+            musicAudio.pause();
+            musicAudio.currentTime = 0;
+            $(this).find('.menu-value').text("OFF");
         }
     });
+
+    // Gestió efectes
+    $('.menu-row:contains("SFX")').on('click', function () {
+        effectsOn = !effectsOn;
+        $(this).find('.menu-value').text(effectsOn ? "ON" : "OFF");
+    });
+
     //Función "boton" cache
     var botoCache = $("#cache-button");
     botoCache.on("click", ()=>{

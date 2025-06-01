@@ -26,23 +26,22 @@ class Segment{
         // necessitem coneixer els 4 segments del rectangle
 
         //vora superior
-        let segmentVoraSuperior = new  Segment(rectangle.puntPosicio,
+        let segmentVoraSuperior = new Segment(rectangle.puntPosicio,
             new Punt(rectangle.puntPosicio.x + rectangle.amplada, rectangle.puntPosicio.y));
 
         //vora inferior
-        let segmentVoraInferior = new  Segment(
-            new Punt(rectangle.puntPosicio.x,
-                    rectangle.puntPosicio.y+rectangle.alcada),
+        let segmentVoraInferior = new Segment(
+            new Punt(rectangle.puntPosicio.x, 
+                rectangle.puntPosicio.y+rectangle.alcada),
             new Punt(rectangle.puntPosicio.x + rectangle.amplada,
                 rectangle.puntPosicio.y+rectangle.alcada));
 
         //vora esquerra
-        let segmentVoraEsquerra = new  Segment(rectangle.puntPosicio,
+        let segmentVoraEsquerra = new Segment(rectangle.puntPosicio,
             new Punt(rectangle.puntPosicio.x , rectangle.puntPosicio.y + rectangle.alcada));
-
-
+            
         //vora dreta
-        let segmentVoraDreta = new  Segment(
+        let segmentVoraDreta = new Segment(
             new Punt(rectangle.puntPosicio.x + rectangle.amplada,
                 rectangle.puntPosicio.y),
             new Punt(rectangle.puntPosicio.x + rectangle.amplada,
@@ -74,17 +73,46 @@ class Segment{
          * Tasca. Replicar la identificació del punt 
          * d'intersecció per a cada vora
         **********************************/
-        //vora inferior
-        
-        //vora esquerra
-        
-        //vora dreta
+        // Vora inferior
+        puntI = this.puntInterseccio(segmentVoraInferior);
+        if (puntI) {
+            let distanciaI = Punt.distanciaDosPunts(this.puntA, puntI);
+            if (distanciaI < distanciaIMin) {
+                distanciaIMin = distanciaI;
+                puntIMin = puntI;
+                voraI = "inferior";
+            }
+        }
+
+        // Vora esquerra
+        puntI = this.puntInterseccio(segmentVoraEsquerra);
+        if (puntI) {
+            let distanciaI = Punt.distanciaDosPunts(this.puntA, puntI);
+            if (distanciaI < distanciaIMin) {
+                distanciaIMin = distanciaI;
+                puntIMin = puntI;
+                voraI = "esquerra";
+            }
+        }
+
+        // Vora dreta
+        puntI = this.puntInterseccio(segmentVoraDreta);
+        if (puntI) {
+            let distanciaI = Punt.distanciaDosPunts(this.puntA, puntI);
+            if (distanciaI < distanciaIMin) {
+                distanciaIMin = distanciaI;
+                puntIMin = puntI;
+                voraI = "dreta";
+            }
+        }
        
 
         if(voraI){
             //Objecte que retorna e punt d'intersecció i en quina vora 
             //hem xocat (dreta, esquerra, superior, inferior)
             return {pI: puntIMin, vora: voraI};
+        } else {
+            return null;
         }
     }
 
