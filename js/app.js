@@ -116,7 +116,7 @@ function inicialitzaMenu() {
 
     // colores del tema
     const colorsGame = {
-        classic: {
+        default: {
             fons: "#222",
             pala1: "#eee",
             pala2: "#eee",
@@ -124,21 +124,21 @@ function inicialitzaMenu() {
         },
         blue: {
             fons: "#0d1b2a",
-            pala1: "#1b263b",
-            pala2: "#1b263b",
+            pala1: "#4fc3f7",
+            pala2: "#4fc3f7",
             bola: "#00b4d8",
         },
         red: {
-            fons: "#x2d0606x",
+            fons: "#2d0606",
             pala1: "#ff4e4e",
             pala2: "#ff4e4e",
-            bola: "#7a7a7a",
+            bola: "#ffd6a5",
         },
         green: {
             fons: "#1b5e20",
             pala1: "#43a047",
             pala2: "#43a047",
-            bola: "#7a7a7a",
+            bola: "#b2ff59",
         },
         orange: {
             fons: "#ff9800",
@@ -148,21 +148,17 @@ function inicialitzaMenu() {
         }
     };
     $("#select-color").on("change", colores);
-    function colores(){
-        var colorSelected = $("#select-color").value;
-        colorSelected.on("change", ()=>{
-            let colorGame = colorsGame[colorSelected];
-            let fonsJoc = $("#joc");
+    function colores() {
+        var colorSelected = $("#select-color").val(); // usa .val() en vez de .value
+        let colorGame = colorsGame[colorSelected];
+        let fonsJoc = $("#joc");
 
-            // cambiamos colores del fondo, palas y bola
-            fonsJoc.css("background-color", colorGame.fons);
-            joc.bola.colorRectangle = colorGame.bola;
-            joc.palaJugador1.colorRectangle = colorGame.pala1;
-            joc.palaJugador2.colorRectangle = colorGame.pala2;
-        })
+        if (!colorGame) return; // protección por si el color no existe
 
-    };
-    
-
-
+        // cambiamos colores del fondo, palas y bola
+        fonsJoc.css("background-color", colorGame.fons);
+        joc.bola.colorRectangle = colorGame.bola;
+        joc.palaJugador1.colorRectangle = colorGame.pala1;
+        joc.palaJugador2.colorRectangle = colorGame.pala2;
+    }
 }
