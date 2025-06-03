@@ -67,6 +67,14 @@ function playEffect(audioObj) {
 }
 
 function inicialitzaMenu() {
+    // Llegim el nom del jugador de localStorage (si existeix si no ps posar el)
+    const nomGuardat = localStorage.getItem('playerName');
+    if (nomGuardat) {
+        $('#player-name').val(nomGuardat);
+    } else {
+        $('#player-name').val('PLAYER1');
+    }
+
     // Cargar récords
     const highScores = [
         { name: "PRO", score: 22 },
@@ -129,20 +137,12 @@ function inicialitzaMenu() {
         animacio();
         $('.menu').hide();
         $('#display, #divjoc').show();
+        document.getElementById("final-message").style.display = "none"; // per si de cas està obert
 
         playEffect(gameStart);
         gameStarted = true;
 
         console.log("Game Strt");
-
-        // // Guardar rècord si s'ha superat un dels 5 millors
-        // const records = JSON.parse(localStorage.getItem("records")) || [];
-        // const nouRecord = { nom: playerName, punts: joc.puntuacioJugador1 };
-        
-        // // Afegir i ordenar de major a menor
-        // records.push(nouRecord);
-        // records.sort((a, b) => b.punts - a.punts); 
-        // localStorage.setItem("records", JSON.stringify(records.slice(0, 5)));
     }
 
     // Gestió del botó MUSIC
@@ -208,7 +208,10 @@ function inicialitzaMenu() {
             bola: "#ff5722",
         }
     };
-    $("#select-color").on("change", colores);
+    $("#select-color").on("change", function() {
+        colores();
+        this.blur(); // perd focus
+    });
     function colores() {
         var colorSelected = $("#select-color").val(); // usa .val() en vez de .value
         let colorGame = colorsGame[colorSelected];
