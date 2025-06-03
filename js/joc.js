@@ -72,62 +72,77 @@ class Joc{
 
     update(){
         if (this.gameOver) return;
-          /********************************* 
+        /********************************* 
          * Tasca. Actualitzar les posicions 
          * dels elements del joc
          * al canva: Pales, bola, etc
-        **********************************/      
+        **********************************/   
         this.palaJugador1.update(this.key, this.alcada);
         this.palaJugador2.updateAuto(this.alcada);
         this.bola.update(this.amplada, this.alcada, this.palaJugador1, this.palaJugador2);
         this.draw();
 
+        // Actualitzar puntuacions a la pantalla
         document.getElementById("score-jugador1").textContent = this.puntuacioJugador1;
         document.getElementById("score-jugador2").textContent = this.puntuacioJugador2;
 
-        if (this.puntuacioJugador1 >= PUNTS_GUANYADOR) {
-            playEffect(soWin);
-    
-            const guanyador = this.puntuacioJugador1 >= PUNTS_GUANYADOR ? 'Jugador 1' : 'Jugador 2';
-            const puntsGuanyador = this.puntuacioJugador1 >= PUNTS_GUANYADOR ? this.puntuacioJugador1 : this.puntuacioJugador2;
+        // Comprovació de guanyador
+        if (this.puntuacioJugador1 >= PUNTS_GUANYADOR || this.puntuacioJugador2 >= PUNTS_GUANYADOR) {
+            this.gameOver = true;
+            aturaAnimacio();
+
+            // Mostrar missatge i determinar guanyador
+            const guanyaJugador1 = this.puntuacioJugador1 >= PUNTS_GUANYADOR;
+            const guanyador = guanyaJugador1 ? 'Jugador 1' : 'Jugador 2';
+            const puntsGuanyador = guanyaJugador1 ? this.puntuacioJugador1 : this.puntuacioJugador2;
+
+            if (guanyaJugador1) playEffect(soWin);
 
             setTimeout(() => {
-                alert(`GUANYADOR: ${guanyador}! Nivell ${this.nivell || 1} completat.`);
-            }, 100); // no se si posarem nivells en un futur
+                // Mostrar missatge a la pantalla
+                document.getElementById("final-message").style.display = "block";
+                document.getElementById("final-message").textContent = guanyaJugador1
+                    ? `GUANYADOR: ${guanyador}! Nivell ${this.nivell || 1} completat.`
+                    : 'HAS PERDUT.';
+                // No se si posarem funcionalitat de nivells i 1 vs 1, ho deixo preprat
+                // Tancar el missatge als 3 segons
+                setTimeout(() => {
+                    document.getElementById("final-message").style.display = "none";
+                }, 8000);
 
-            const playerName = localStorage.getItem('playerName') || 'PLAYER';
-            const nouRecord = { name: playerName, score: puntsGuanyador };
-            let records = JSON.parse(localStorage.getItem("records")) || [];
+                // També ocultar si es fa clic fora del missatge
+                const tancarMissatge = (e) => {
+                    const finalMsg = document.getElementById("final-message");
+                    if (!finalMsg.contains(e.target)) {
+                        finalMsg.style.display = "none";
+                        document.removeEventListener("click", tancarMissatge);
+                    }
+                };
+                document.addEventListener("click", tancarMissatge);
 
-            // records.push(nouRecord);
-            // records.sort((a, b) => b.score - a.score);
-            // records = records.slice(0, 5); // només els 5 millors
-            // localStorage.setItem("records", JSON.stringify(records));
+                // Mostrar menú i ocultar el joc
+                $('#divjoc').hide();
+                $('#display').hide();
+                $('.menu').show();
 
-            // Tornar al menú i reiniciar estat
-            $('#divjoc').hide();
-            $('#display').hide();
-            $('.menu').show();
-            joc.puntuacioJugador1 = 0;
-            joc.puntuacioJugador2 = 0;
-            gameStarted = false;
+                // Guardar rècord si guanya jugador 1
+                if (guanyaJugador1) {
+                    const playerName = localStorage.getItem('playerName') || 'PLAYER';
+                    const nouRecord = { name: playerName, score: puntsGuanyador };
+                    let records = JSON.parse(localStorage.getItem("records")) || [];
 
-            aturaAnimacio();
+                    records.push(nouRecord);
+                    records.sort((a, b) => b.score - a.score);
+                    records = records.slice(0, 5); // només els 5 millors
+                    localStorage.setItem("records", JSON.stringify(records));
+                }
 
-            this.gameOver = true; // al final
-        }
-        else if (this.puntuacioJugador2 >= PUNTS_GUANYADOR) {
-            alert(`HAS PERDUT.`);
-            $('#divjoc').hide();
-            $('#display').hide();
-            $('.menu').show();
-            joc.puntuacioJugador1 = 0;
-            joc.puntuacioJugador2 = 0;
-            gameStarted = false;
+                // Reiniciar estat
+                this.puntuacioJugador1 = 0;
+                this.puntuacioJugador2 = 0;
+                gameStarted = false;
 
-            aturaAnimacio();
-
-            this.gameOver = true;
+            }, 100);
         }
     }
 
