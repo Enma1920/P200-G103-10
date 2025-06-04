@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,11 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <title>Brick Pong</title>
 </head>
+
 <body>
     <div id="container">
         <div class="menu">
             <h1 class="menu-title">brick pong</h1>
-
             <div class="menu-start">PRESS ANY KEY TO START!</div>
 
             <!-- Sección de nombre del jugador -->
@@ -43,18 +44,15 @@
                 <div class="menu-row">
                     <span class="menu-label">CACHE: </span>
                     <span class="menu-value" id="cache-button" tabindex="0" style="margin-left: 12px;"> CLEAR</span>
-
-                    
                 </div>
                 <div class="menu-row">
-                    
-                        <span class="menu-label">MUSIC:</span>
-                        <span class="menu-value" id="music-button" tabindex="0">OFF</span>
-                        <audio controls autoplay loop id="audioMusica">
-                            <source src="musica_puzzle.mp3" type="audio/mpeg">
-                        </audio>
+                    <span class="menu-label">MUSIC: </span>
+                    <span class="menu-value" id="music-button" tabindex="0">OFF</span>
                 </div>
-                
+                <div class="menu-row">
+                    <span class="menu-label" role="button" tabindex="0">SFX</span>
+                    <span class="menu-value" id="sfx-button" role="button" tabindex="0">ON</span>
+                </div>
             </div>
         </div>
         <div id="display" style="display: none;">
@@ -63,27 +61,25 @@
             <div class="score" id="score-jugador2">0</div>   
         </div>  
         <div id="divjoc" style="display: none;">
-            <canvas id="joc" class="canvatable"></canvas>   
-                
-            <div class="menu-controls">
+            <canvas id="joc" class="canvatable"></canvas>    
 
-                    <div class="menu-row">
-                        <span class="menu-label">COLOR:</span>
-                        <select name="select-color" id="select-color">
-                            <option value="default">Default</option>
-                            <option value="blue">Blue</option>
-                            <option value="red">Red</option>
-                            <option value="green">Green</option>
-                            <option value="orange">Orange</option>
-                        </select>
+            <div class="menu-controls">
+                <div class="menu-row">
+                    <span class="menu-label">COLOR:</span>
+                    <select name="select-color" id="select-color">
+                        <option value="default">Default</option>
+                        <option value="blue">Blue</option>
+                        <option value="red">Red</option>
+                        <option value="green">Green</option>
+                        <option value="orange">Orange</option>
+                    </select>
                 </div>
             </div>
- 
+
         </div>    
-            
+        <div id="final-message" style="display: none;" class="final-message"></div> 
     </div>
 </body>
-
 <script src="js/jquery-3.7.1.js"></script>
 <script src="js/punt.js"></script>
 <script src="js/rectangle.js"></script>
@@ -92,6 +88,4 @@
 <script src="js/bola.js"></script>
 <script src="js/joc.js"></script>
 <script src="js/app.js"></script>
-
-
 </html>

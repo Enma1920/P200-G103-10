@@ -1,9 +1,11 @@
 class Pala extends Rectangle {
     constructor(puntPosicio, amplada, alcada) {
         super(puntPosicio, amplada, alcada);
-        this.velocitatX = 2;
-        this.velocitatY = 2;
+        this.velocitatX = 1;
+        this.velocitatY = 1;
         this.colorRectangle = "#eee";
+        this.framesUltimCanvi = 0; // Nou atribut
+        this.framesMinims = 30;
     }
 
     mou(mouX, mouY) {
@@ -59,19 +61,27 @@ class Pala extends Rectangle {
          * o amb variacions aleatories
          *********************************/
         let x = 0;
-        let y = this.velocitatY;
-        let novaPosicioY = this.puntPosicio.y + y;
-
-            if (novaPosicioY >= alcada - this.alcada) {
-                this.velocitatY = -1;
+        if (this.framesUltimCanvi >= this.framesMinims) {
+            // Probabilitat de canvi (per exemple, 10%)
+            if (Math.random() < 0.01) {
+                this.velocitatY *= -1; // Canvi de direcció
+                this.framesUltimCanvi = 0; // Reinicia el comptador
             }
+        } else {
+            this.framesUltimCanvi++;
+        }
 
-            if (novaPosicioY <= 0) {
-                this.velocitatY = 1;
-            }
+        let novaPosicioY = this.puntPosicio.y + this.velocitatY;
 
-            this.mou(x, this.velocitatY);
-        
-        
+        // Si arriba als límits, inverteix direcció i reinicia comptador
+        if (novaPosicioY >= alcada - this.alcada) {
+            this.velocitatY = -Math.abs(this.velocitatY);
+            this.framesUltimCanvi = 0;
+        } else if (novaPosicioY <= 0) {
+            this.velocitatY = Math.abs(this.velocitatY);
+            this.framesUltimCanvi = 0;
+        }
+
+        this.mou(x, this.velocitatY);
     }
 }
